@@ -124,26 +124,20 @@ public class Email_Client {
         }
     }
 
-    public static void setRecipient(String[] recipient_details, String type){
+    public static void setRecipient(String[] recipient_details, String type) {
         for (String a : recipient_details)
             System.out.println(a);
+        RecipientFactory factory = new RecipientFactory();
 
-        if(Objects.equals(type, "Official:")){
-            ClientHandler.addRecipientDetails(new OfficialRecipient(recipient_details[0], recipient_details[1], recipient_details[2]), ".....null");
-        }
-
-        else if(Objects.equals(type, "Office_friend:")){
-            ClientHandler.addRecipientDetails(new OfficialFriend(recipient_details[0], recipient_details[1], recipient_details[2], recipient_details[3]), recipient_details[3]);
-        }
-
-        else if(Objects.equals(type, "Personal:")){
-            ClientHandler.addRecipientDetails(new PersonalRecipient(recipient_details[0], recipient_details[1], recipient_details[2], recipient_details[3]), recipient_details[3]);
-        }
-
-        else{
+        if (Objects.equals(type, "Official:")) {
+            ClientHandler.addRecipientDetails(factory.createOfficialRecipient(recipient_details[0], recipient_details[1], recipient_details[2]), ".....null");
+        } else if (Objects.equals(type, "Office_friend:")) {
+            ClientHandler.addRecipientDetails(factory.createOfficialFriend(recipient_details[0], recipient_details[1], recipient_details[2], recipient_details[3]), recipient_details[3]);
+        } else if (Objects.equals(type, "Personal:")) {
+            ClientHandler.addRecipientDetails(factory.createPersonalRecipient(recipient_details[0], recipient_details[1], recipient_details[2], recipient_details[3]), recipient_details[3]);
+        } else {
             System.out.println("Input error. Please try again.\n");
         }
-
     }
 
 }
